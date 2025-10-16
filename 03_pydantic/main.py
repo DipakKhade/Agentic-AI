@@ -30,6 +30,12 @@ user_1 = {
     'age':12
 }
 
-user_1_instance = User(**user_1)
+user_2 = {
+    **user_1,
+    'name':'gaurav'
+}
 
-print(user_1_instance.age)
+user_1_instance = User(**user_1)
+user_2_instance = User(**user_2)
+
+print(user_2_instance.name)
