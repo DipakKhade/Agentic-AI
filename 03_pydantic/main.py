@@ -20,13 +20,14 @@ class User(BaseModel):
         if x > 100:
             raise ValueError('invalid age')
         return x
+    
 
 user_1 = {
     'id':1,
     'name':'dipak',
     'rols':['asd', 'asd2'],
     # 'tasks':[{'t1':'this is task 1'}],
-    'surname':'khade' ,
+    'surname':'khade',
     'age':12
 }
 
