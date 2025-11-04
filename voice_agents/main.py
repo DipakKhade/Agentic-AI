@@ -13,6 +13,10 @@ openai  = OpenAI(
 
 engine = pyttsx3.init()
 
+
+message_history = []
+message_history.append({"role":"system", "content": SYSTEM_PROMPT})
+
 def main():
     voice_recognizer = sr.Recognizer()
 
@@ -20,24 +24,24 @@ def main():
         voice_recognizer.adjust_for_ambient_noise(source)
         voice_recognizer.pause_threshold = 2
 
-        audio = voice_recognizer.listen(source=source)
+        while True:
+            audio = voice_recognizer.listen(source=source)
 
-        text_from_audio = voice_recognizer.recognize_google(audio)
+            text_from_audio = voice_recognizer.recognize_google(audio)
 
-        print('text_from_audio ---', text_from_audio)
+            print('text_from_audio ---', text_from_audio)
 
-        response = openai.chat.completions.create(
-            model="gemini-2.5-flash",
-            messages=[
-                {"role":"system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": text_from_audio}
-            ]
-        )
+            message_history.append({"role": "user", "content": text_from_audio})
 
-        print(response.choices[0].message.content)
+            response = openai.chat.completions.create(
+                model="gemini-2.5-flash",
+                messages= message_history
+            )
 
-        engine.say(response.choices[0].message.content)
-        engine.runAndWait()
+            print(response.choices[0].message.content)
+
+            engine.say(response.choices[0].message.content)
+            engine.runAndWait()
         
 if __name__ == "__main__":
     main()
