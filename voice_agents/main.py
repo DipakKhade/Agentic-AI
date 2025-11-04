@@ -37,10 +37,13 @@ def main():
                 model="gemini-2.5-flash",
                 messages= message_history
             )
+            
+            llm_response = response.choices[0].message.content
+            message_history.append({"role": "assistant", "content": llm_response})
 
-            print(response.choices[0].message.content)
+            print(llm_response)
 
-            engine.say(response.choices[0].message.content)
+            engine.say(llm_response)
             engine.runAndWait()
         
 if __name__ == "__main__":
