@@ -1,6 +1,6 @@
 from fastmcp import FastMCP
 
-mcp = FastMCP("My MCP Server")
+mcp = FastMCP("server_name")
 
 @mcp.tool
 def get_my_name() -> str:
@@ -8,4 +8,3 @@ def get_my_name() -> str:
 
 if __name__ == "__main__":
     mcp.run()
-
